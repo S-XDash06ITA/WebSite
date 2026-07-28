@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon...</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#003399;
+    font-family:Tahoma,Verdana,Arial,sans-serif;
+    color:#fff;
+}
+
+#wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:220px;
+    background:#C0C0C0;
+    border-right:3px outset #FFFFFF;
+    padding:15px;
+}
+
+.logo{
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#003399;
+    margin-bottom:15px;
+}
+
+.menu-title{
+    background:#003399;
+    color:#fff;
+    padding:5px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.sidebar a{
+    display:block;
+    padding:8px;
+    margin-bottom:6px;
+    background:#EFEFEF;
+    border:2px outset #FFF;
+    color:#0000CC;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.sidebar a:hover{
+    background:#FFFFFF;
+}
+
+.info{
+    margin-top:20px;
+    font-size:12px;
+    color:#222;
+    text-align:center;
+}
+
+/* Contenuto */
+
+.content{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.box{
+    width:100%;
+    max-width:600px;
+    background:#EFEFEF;
+    color:#000;
+    border:3px outset #FFF;
+    padding:30px;
+    text-align:center;
+}
+
+.box h1{
+    color:#003399;
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.box hr{
+    border:none;
+    border-top:1px solid #999;
+    margin:20px 0;
+}
+
+.box p{
+    margin:10px 0;
+    font-size:15px;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:11px;
+    color:#666;
+}
+
+/* Mobile */
+
+@media (max-width:700px){
+
+#wrapper{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+    border-right:none;
+    border-bottom:3px outset #FFF;
+}
+
+.logo{
+    font-size:22px;
+}
+
+.sidebar a{
+    text-align:center;
+}
+
+.content{
+    padding:15px;
+}
+
+.box h1{
+    font-size:30px;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<div class="sidebar">
+
+<div class="logo">
+
+</div>
+
+<div class="menu-title">
+Navigation
+</div>
+
+<a href="https://www.youtube.com/@S-XDash06ITA" target="_blank">📺 YouTube</a>
+
+<a href="https://www.vidlii.com/user/SXDash06ITA" target="_blank">📺 vidlii</a>
+
+<a href="https://discord.gg/cUYhvZZRRg" target="_blank">💬 Discord Server</a>
+
+<a href="https://soundcloud.com/s-xdash06ita/tracks" target="_blank">🎵 SoundCloud</a>
+
+<a href="#" onclick="openSnake(); return false;">🐍 Snake Game</a>
+
+</div>
+
+<div class="content">
+
+<div class="box">
+
+<h1>Coming Soon...</h1>
+
+<hr>
+
+<p><b>Our website is currently under construction.</b></p>
+
+<p>Please check back later.</p>
+
+<div class="footer">
+© 2026 All Rights Reserved.
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- Snake Popup -->
+
+<div id="snakeWindow">
+
+    <div id="snakeTitle">
+        Snake Game
+        <button onclick="closeSnake()">X</button>
+    </div>
+
+    <canvas id="snake" width="400" height="400"></canvas>
+
+</div>
+
+<style>
+
+#snakeWindow{
+    display:none;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:#C0C0C0;
+    border:3px outset white;
+    padding:10px;
+    z-index:9999;
+}
+
+#snakeTitle{
+    background:#003399;
+    color:white;
+    padding:5px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+#snakeTitle button{
+    float:right;
+}
+
+#snake{
+    background:black;
+    display:block;
+}
+
+</style>
+
+<script>
+
+function openSnake(){
+    document.getElementById("snakeWindow").style.display="block";
+}
+
+function closeSnake(){
+    document.getElementById("snakeWindow").style.display="none";
+}
+
+const canvas=document.getElementById("snake");
+const ctx=canvas.getContext("2d");
+
+let snake=[
+{x:10,y:10}
+];
+
+let food={
+x:15,
+y:15
+};
+
+let dx=1;
+let dy=0;
+
+document.addEventListener("keydown",e=>{
+
+if(e.key=="ArrowUp" && dy==0){
+dx=0;dy=-1;
+}
+
+if(e.key=="ArrowDown" && dy==0){
+dx=0;dy=1;
+}
+
+if(e.key=="ArrowLeft" && dx==0){
+dx=-1;dy=0;
+}
+
+if(e.key=="ArrowRight" && dx==0){
+dx=1;dy=0;
+}
+
+});
+
+function draw(){
+
+ctx.fillStyle="black";
+ctx.fillRect(0,0,400,400);
+
+ctx.fillStyle="lime";
+
+snake.forEach(s=>{
+ctx.fillRect(s.x*20,s.y*20,18,18);
+});
+
+ctx.fillStyle="red";
+ctx.fillRect(food.x*20,food.y*20,18,18);
+
+const head={
+x:snake[0].x+dx,
+y:snake[0].y+dy
+};
+
+if(head.x<0)head.x=19;
+if(head.x>19)head.x=0;
+if(head.y<0)head.y=19;
+if(head.y>19)head.y=0;
+
+snake.unshift(head);
+
+if(head.x==food.x && head.y==food.y){
+
+food.x=Math.floor(Math.random()*20);
+food.y=Math.floor(Math.random()*20);
+
+}else{
+
+snake.pop();
+
+}
+
+for(let i=1;i<snake.length;i++){
+
+if(head.x==snake[i].x && head.y==snake[i].y){
+
+snake=[{x:10,y:10}];
+dx=1;
+dy=0;
+
+}
+
+}
+
+}
+
+setInterval(draw,120);
+
+</script>
+</body>
+</html>
